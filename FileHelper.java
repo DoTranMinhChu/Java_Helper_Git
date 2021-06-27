@@ -1,6 +1,7 @@
 package Helper;
 
 
+import java.io.File;
 
 public class FileHelper {
 
@@ -20,6 +21,7 @@ public class FileHelper {
             return e.getMessage();
         }
     }
+
     public static String WriteText(String fileName,String text){
         try {
             java.io.FileWriter fileWriter = new java.io.FileWriter(fileName);
@@ -60,6 +62,7 @@ public class FileHelper {
             return  e.getMessage();
         }
     }
+
     public static java.util.ArrayList<String> ReadText(String fileName){
         java.util.ArrayList<String> data = new java.util.ArrayList<String>();
         try {
@@ -72,7 +75,6 @@ public class FileHelper {
         }
         return data;
     }
-
     public static String WriteUTF8(String fileName,String text){
         try{
             java.io.RandomAccessFile randomAccessFile = new java.io.RandomAccessFile(fileName,"rw");
@@ -182,4 +184,47 @@ public class FileHelper {
         }
         return list;
     }
+
+    public static String MovingFile(String fileName,String oldDirectory,String newDirectory){
+        String oldPath=CombinePath(oldDirectory,fileName);
+        String newPath=CombinePath(newDirectory,fileName);
+        if(IsFileExists(oldPath)&&IsDirectoryExists(oldDirectory)&&IsDirectoryExists(newDirectory)){
+            try {
+                if(IsFileExists(oldPath)) {
+                    java.io.File file = new java.io.File(oldPath);
+                    file.renameTo(new java.io.File(newPath));
+                    return "Moving file successful.";
+                }
+                else {
+                    throw new java.io.IOException();
+
+                }
+
+            } catch (java.io.IOException e) {
+                return "Moving file unsuccessful.";
+            }
+        }else {
+            return "Moving file unsuccessful.";
+        }
+
+
+    }
+    public static String CombinePath(String path1, String path2)
+    {
+        java.io.File file1 = new java.io.File(path1);
+        java.io.File file2 = new java.io.File(file1, path2);
+        return file2.getPath();
+    }
+    public static boolean IsFileExists(String filePath){
+        java.io.File file = new java.io.File(filePath);
+        if(file.exists()&&!file.isDirectory()) return true;
+        return false;
+    }
+    public static boolean IsDirectoryExists(String filePath){
+        java.io.File file = new java.io.File(filePath);
+        if(file.exists()&&!file.isFile()) return true;
+        return false;
+    }
+
+
 }
