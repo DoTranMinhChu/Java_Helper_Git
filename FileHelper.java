@@ -203,7 +203,7 @@ public class FileHelper {
             } catch (java.io.IOException e) {
                 return "Moving file unsuccessful.";
             }
-        }else {
+        }else
             return "Moving file unsuccessful.";
         }
 
