@@ -2,11 +2,11 @@ package Helper;
 
 public class IOHelper {
     public static int IsnputInt(String mess){
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
         do{
             int value;
             try{
-                java.util.Scanner scanner = new java.util.Scanner(System.in);
-                System.out.print(mess);value=scanner.nextInt();
+                System.out.print(mess);value=Integer.parseInt(scanner.nextLine());
                 scanner.close();
                 return value;
             }catch (Exception e){
@@ -15,11 +15,11 @@ public class IOHelper {
         }while (true);
     }
     public static float InputFloat(String mess){
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
         do{
             float value;
             try{
-                java.util.Scanner scanner = new java.util.Scanner(System.in);
-                System.out.print(mess);value=scanner.nextFloat();
+                System.out.print(mess);value=Float.parseFloat(scanner.nextLine());
                 scanner.close();
                 return value;
             }catch (Exception e){
@@ -32,7 +32,7 @@ public class IOHelper {
             double value;
             try{
                 java.util.Scanner scanner = new java.util.Scanner(System.in);
-                System.out.print(mess);value=scanner.nextDouble();
+                System.out.print(mess);value=Double.parseDouble(scanner.nextLine());
                 scanner.close();
                 return value;
             }catch (Exception e){
