@@ -2,7 +2,9 @@ package Helper;
 
 
 import java.io.File;
+import java.util.List;
 
+import Object.*;
 public class FileHelper {
 
     public static String CreateNewFiles(String fileName){
@@ -136,9 +138,19 @@ public class FileHelper {
             java.io.File file = new java.io.File(fileName);
             java.io.FileOutputStream fileOutputStream = new java.io.FileOutputStream(file);
             java.io.ObjectOutputStream objectOutputStream = new java.io.ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(object);
+            if(object instanceof java.util.List || object instanceof java.util.ArrayList || object.getClass().isArray() ) {
+                java.util.List listObject = (List)object;
+                for (int i=0;i<listObject.size();i++){
+                    objectOutputStream.writeObject(listObject.get(i));
+                }
+            }else{
+                objectOutputStream.writeObject(object);
+            }
+            objectOutputStream.close();
+            fileOutputStream.close();
+
             return "Successfully wrote to the file.";
-        }catch (Exception e){
+        }catch (Exception e) {
             return e.getMessage();
         }
     }
@@ -149,15 +161,22 @@ public class FileHelper {
             if(HasObject(fileName)){
                 try {
                     java.io.File file = new java.io.File(fileName);
-
-                    java.io.FileOutputStream fo = new java.io.FileOutputStream(file, true);
-
-                    java.io.ObjectOutputStream oStream = new java.io.ObjectOutputStream(fo) {
+                    java.io.FileOutputStream fileOutputStream = new java.io.FileOutputStream(file, true);
+                    java.io.ObjectOutputStream objectOutputStream = new java.io.ObjectOutputStream(fileOutputStream) {
                         protected void writeStreamHeader() throws java.io.IOException {
-                            reset();
+                            return;
                         }
                     };
-                    oStream.writeObject(object);
+                    if(object instanceof java.util.List || object instanceof java.util.ArrayList || object.getClass().isArray() ) {
+                        java.util.List listObject = (List)object;
+                        for (int i=0;i<listObject.size();i++){
+                            objectOutputStream.writeObject(listObject.get(i));
+                        }
+                    }else{
+                        objectOutputStream.writeObject(object);
+                    }
+                    objectOutputStream.close();
+                    fileOutputStream.close();
                     return "Append successfully to the file.";
                 }catch (Exception e){
                     return e.getMessage();
@@ -168,21 +187,31 @@ public class FileHelper {
         }
     }
     public static Object ReadObject(String fileName){
-        java.util.List<Object> list = null;
         try {
             java.io.File file = new java.io.File(fileName);
             java.io.FileInputStream fileInputStream= new java.io.FileInputStream(file);
             java.io.ObjectInputStream objectInputStream = new java.io.ObjectInputStream(fileInputStream);
+            return objectInputStream.readObject();
+        }catch (Exception e){
+            e.getMessage();
+            return null;
+        }
 
+    }
+    public static List ReadListObject(String fileName){
+        java.util.List<Object> list = new java.util.ArrayList<Object>();
+        try {
+            java.io.File file = new java.io.File(fileName);
+            java.io.FileInputStream fileInputStream= new java.io.FileInputStream(file);
+            java.io.ObjectInputStream objectInputStream = new java.io.ObjectInputStream(fileInputStream);
             while (true) {
-                return objectInputStream.readObject();
+                list.add(objectInputStream.readObject());
             }
-
         }catch (Exception e){
              e.getMessage();
-
+            return list;
         }
-        return list;
+
     }
 
     public static String MovingFile(String fileName,String oldDirectory,String newDirectory){
@@ -203,7 +232,7 @@ public class FileHelper {
             } catch (java.io.IOException e) {
                 return "Moving file unsuccessful.";
             }
-        }else
+        }else{
             return "Moving file unsuccessful.";
         }
 
