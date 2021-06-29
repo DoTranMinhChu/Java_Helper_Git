@@ -186,7 +186,7 @@ public class FileHelper {
             }
         }
     }
-    public static Object ReadObject(String fileName){
+    public static Object ReadOneObject(String fileName){
         try {
             java.io.File file = new java.io.File(fileName);
             java.io.FileInputStream fileInputStream= new java.io.FileInputStream(file);
