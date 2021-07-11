@@ -2,6 +2,14 @@ package Helper;
 
 public class IOHelper {
     static java.util.Scanner scanner = new java.util.Scanner(System.in);
+
+    /*
+    Parameter:
+        'msg' is the message print before enter data
+    Note:
+       The function will ask for re-enter until you enter the correct integer
+       And return value entered
+    */
     public static int InputInt(String msg){
         int value;
         do{
@@ -13,6 +21,17 @@ public class IOHelper {
             }
         }while (true);
     }
+
+
+
+    /*
+    Parameter:
+        'msg' is the message print before enter data
+        'min' is minimum value you can enter
+    Note:
+       The function will ask for re-enter until you enter the correct
+       And return value entered
+    */
     public static int InputInt(String msg,int min){
         int value;
         do{
@@ -25,6 +44,19 @@ public class IOHelper {
             }
         }while (true);
     }
+
+
+
+
+    /*
+    Parameter:
+        'msg' is the message print before enter data
+        'min' is minimum value you can enter
+        'max' is maximum value you can enter
+    Note:
+       The function will ask for re-enter until you enter the correct
+       And return value entered
+    */
     public static int InputInt(String msg,int min,int max){
         int value;
         do{
@@ -37,6 +69,8 @@ public class IOHelper {
             }
         }while (true);
     }
+
+
 
     public static float InputFloat(String msg){
         float value;
@@ -146,17 +180,47 @@ public class IOHelper {
         }while (true);
     }
 
+
+
+
+    /*
+    Parameter:
+        'msg' is the message print before enter data
+    Note:
+       Return value entered
+    */
     public static String InputString(String msg){
         String value;
         System.out.print(msg);value=scanner.nextLine();
         return value;
     }
+
+    /*
+   Parameter:
+       'msg' is the message print before enter data
+       'trim' set 'true' when you want removes whitespace from both ends of a string
+   Note:
+      Return value entered after handling
+   */
     public static String InputString(String msg,boolean trim){
         String value;
         System.out.print(msg);value=scanner.nextLine();
         if(trim)return value.trim();
         else return value;
     }
+
+
+
+
+
+    /*
+    Parameter:
+        'msg' is the message print before enter data
+        'pattern' is regular expression patterns
+    Note:
+       The function will ask for re-enter until you enter the correct
+       And return value entered
+    */
     public static String InputPattern(String msg,String pattern){
         String value;
         do{
