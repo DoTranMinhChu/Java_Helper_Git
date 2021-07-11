@@ -7,7 +7,7 @@ Welcome to my README!
 <br>
 <br>
 <hr  width="30%" size="5px" align="center" color="red"/>
-<a href="https://github.com/DoTranMinhChu/Java_Helper_Git/blob/main/FileHelper.java"><h4>&copy; FileHelper.java</h2></a>
+<a href="https://github.com/DoTranMinhChu/Java_Helper_Git/blob/main/FileHelper.java"><h4>&copy; FileHelper.java</h4></a>
 <ul>
     <li><span style="color:#AC7631">public static</span> String <span style="color:#D2BA6C">CreateNewFiles</span>(String <span style="color:#660099">fileName</span>)</li>
     <li><span style="color:#AC7631">public static</span> String <span style="color:#D2BA6C">DeleteFiles</span>(String <span style="color:#660099">fileName</span>)</li>
