@@ -1,11 +1,11 @@
 package Helper;
 
 
-import java.io.File;
-import java.util.List;
+
 
 import Object.*;
 public class FileHelper {
+
     public static String CreateNewFiles(String fileName){
         try{
             if(new java.io.File(fileName).createNewFile())return fileName+" create success.";
@@ -22,7 +22,6 @@ public class FileHelper {
             return e.getMessage();
         }
     }
-
     public static String WriteText(String fileName,String text){
         try {
             java.io.FileWriter fileWriter = new java.io.FileWriter(fileName);
@@ -138,7 +137,7 @@ public class FileHelper {
             java.io.FileOutputStream fileOutputStream = new java.io.FileOutputStream(file);
             java.io.ObjectOutputStream objectOutputStream = new java.io.ObjectOutputStream(fileOutputStream);
             if(object instanceof java.util.List || object instanceof java.util.ArrayList || object.getClass().isArray() ) {
-                java.util.List listObject = (List)object;
+                java.util.List listObject = (java.util.List)object;
                 for (int i=0;i<listObject.size();i++){
                     objectOutputStream.writeObject(listObject.get(i));
                 }
@@ -167,7 +166,7 @@ public class FileHelper {
                         }
                     };
                     if(object instanceof java.util.List || object instanceof java.util.ArrayList || object.getClass().isArray() ) {
-                        java.util.List listObject = (List)object;
+                        java.util.List listObject = (java.util.List)object;
                         for (int i=0;i<listObject.size();i++){
                             objectOutputStream.writeObject(listObject.get(i));
                         }
@@ -197,7 +196,7 @@ public class FileHelper {
         }
 
     }
-    public static List ReadListObject(String fileName){
+    public static java.util.List ReadListObject(String fileName){
         java.util.List<Object> list = new java.util.ArrayList<Object>();
         try {
             java.io.File file = new java.io.File(fileName);
