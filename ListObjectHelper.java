@@ -80,6 +80,8 @@ public class ListObjectHelper<T> {
 
 
 
+
+
     /*
     Parameter:
         'sortBy' can be a field name or a method name
@@ -90,12 +92,12 @@ public class ListObjectHelper<T> {
     public java.util.List<T> Sort(String sortBy){
         java.util.List<T> listTemp = new java.util.ArrayList<>();
         listTemp.addAll(listObject);
-        ObjectHelper<T> checkObj= new ObjectHelper<T>(listObject.get(0));
+        ObjectHelpers<T> checkObj= new ObjectHelpers<T>(listObject.get(0));
         if(checkObj.hasMethod(sortBy)){
             java.util.Collections.sort(listTemp,new java.util.Comparator<T>(){
                 public int compare(T o1,T o2){
-                    ObjectHelper<T> obj1= new ObjectHelper<T>(o1);
-                    ObjectHelper<T> obj2= new ObjectHelper<T>(o2);
+                    ObjectHelpers<T> obj1= new ObjectHelpers<T>(o1);
+                    ObjectHelpers<T> obj2= new ObjectHelpers<T>(o2);
                     Object method1 =obj1.getMethod(sortBy);
                     Object method2 =obj2.getMethod(sortBy);
                     if(method1 instanceof Integer || method1 instanceof Byte || method1 instanceof Short ||method1 instanceof Long  ){
@@ -116,8 +118,8 @@ public class ListObjectHelper<T> {
         }else if(checkObj.hasField(sortBy)){
             java.util.Collections.sort(listTemp,new java.util.Comparator<T>(){
                 public int compare(T o1,T o2){
-                    ObjectHelper<T> obj1= new ObjectHelper<T>(o1);
-                    ObjectHelper<T> obj2= new ObjectHelper<T>(o2);
+                    ObjectHelpers<T> obj1= new ObjectHelpers<T>(o1);
+                    ObjectHelpers<T> obj2= new ObjectHelpers<T>(o2);
                     Object filed1 =obj1.getFiled(sortBy);
                     Object filed2 =obj2.getFiled(sortBy);
                     if(filed1 instanceof Integer || filed1 instanceof Byte || filed1 instanceof Short ||filed1 instanceof Long ){
@@ -137,5 +139,100 @@ public class ListObjectHelper<T> {
         }
 
         return listTemp;
+    }
+
+
+
+    /*
+        ObjectHelpers<T> using help Object in List Object
+     */
+    private class ObjectHelpers<T>{
+        public T obj;
+
+        public ObjectHelpers(T obj){
+            this.obj=obj;
+        }
+
+        /*
+        Parameter:
+            'methodName' is name of method you want check
+        Note:
+            Return 'true' if the Object has this method, and 'false' if vice versa
+        */
+        public boolean hasMethod(String methodName){
+            try{
+                java.lang.reflect.Method[] methods = obj.getClass().getMethods();
+                for (int i=0;i<methods.length;i++){
+                    if(methodName.equals(methods[i].getName())) return true;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+
+            }
+            return false;
+        }
+
+
+        /*
+        Parameter:
+            'methodName' is name of field you want check
+        Note:
+            Return 'true' if the Object has this field, and 'false' if vice versa
+        */
+        public boolean hasField(String fieldName){
+            try{
+                java.lang.reflect.Field[] fields = obj.getClass().getFields();
+                for (int i=0;i<fields.length;i++){
+                    if(fieldName.equals(fields[i].getName())) return true;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+
+            }
+            return false;
+        }
+
+
+
+
+        /*
+        Parameter:
+            'methodName' is name of method you want execute
+        Note:
+            Execute method and return if this method exists
+        */
+        public Object getMethod(String methodName){
+            if(hasMethod(methodName)){
+                try {
+                    java.lang.reflect.Method method = obj.getClass().getDeclaredMethod(methodName);
+                    return method.invoke(obj);
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+            }
+            return null;
+        }
+
+
+        /*
+        Parameter:
+            'fieldName' is name of filed you get data
+        Note:
+             Get filed of Object if this filed exists
+        */
+        public Object getFiled(String fieldName){
+            if(hasField(fieldName)){
+                try {
+                    java.lang.reflect.Field field = obj.getClass().getDeclaredField(fieldName);
+                    return field.get(obj);
+                }catch (Exception e){
+                    e.printStackTrace();
+
+                }
+            }
+            return null;
+        }
+
     }
 }
