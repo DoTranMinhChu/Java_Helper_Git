@@ -6,7 +6,6 @@ import java.util.List;
 
 import Object.*;
 public class FileHelper {
-
     public static String CreateNewFiles(String fileName){
         try{
             if(new java.io.File(fileName).createNewFile())return fileName+" create success.";
