@@ -1,5 +1,9 @@
 package Helper;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
 public class IOHelper {
     static java.util.Scanner scanner = new java.util.Scanner(System.in);
 
@@ -227,6 +231,39 @@ public class IOHelper {
             System.out.print(msg);value=scanner.nextLine();
         }while (!value.matches(pattern));
         return value;
+    }
+
+
+
+
+
+
+    public static Date InputDate(String msg,String regex){
+        SimpleDateFormat df = new SimpleDateFormat(regex);
+        Date date = new Date();
+        String value;
+        df.setLenient(false);
+        do{
+            try {
+                System.out.print(msg); value=scanner.nextLine();
+                date=df.parse(value);
+                return date;
+            }catch (Exception e){
+                System.out.println("[!] Invalid [!]");
+            }
+        }while (true);
+
+    }
+
+
+
+    public static String DateToString(Date date,String regex){
+        SimpleDateFormat df = new SimpleDateFormat(regex);
+        try {
+            return df.format(date);
+        }catch (Exception e){
+            return null;
+        }
     }
 
 }
