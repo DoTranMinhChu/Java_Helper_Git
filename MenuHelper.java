@@ -1,4 +1,4 @@
-package Helper;
+package Java_Helper_Git;
 
 import java.util.Scanner;
 

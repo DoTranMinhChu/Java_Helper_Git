@@ -1,4 +1,4 @@
-package Helper;
+package Java_Helper_Git;
 
 /*
     ObjectHelper is used by declaring and passing as parameter the Object itself needs help

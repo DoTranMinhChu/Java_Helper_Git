@@ -1,9 +1,8 @@
-package Helper;
+package Java_Helper_Git;
 
 
 
 
-import Object.*;
 public class FileHelper {
 
     /*
